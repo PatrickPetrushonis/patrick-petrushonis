@@ -17,6 +17,14 @@ const Footer = () => {
               href="https://www.linkedin.com/in/patrick-petrushonis/"
             />
           </li>
+          <li className="social-icon">
+            <a 
+              className="social-github" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              href="https://github.com/PatrickPetrushonis"
+            />
+          </li>
         </ul>
       </div>
     </div>

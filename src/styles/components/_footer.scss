@@ -48,6 +48,7 @@
       padding: 0 8px;
       float: left;
       
+      .social-github { @include social-icon('github'); }
       .social-linkedin { @include social-icon('linkedin'); }
    }
 }
