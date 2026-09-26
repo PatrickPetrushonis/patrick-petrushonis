@@ -44,6 +44,18 @@
     transition: all 0.3s ease-in-out;
     width: 44px;
 
+    // Scroll-triggered visibility: hidden until scrolled past the
+    // threshold ScrollToTop.astro's script sets. The existing
+    // transition: all rule above already animates this, since it
+    // covers opacity along with the hover transform.
+    opacity: 0;
+    visibility: hidden;
+
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
     &:hover { 
         transform: translateY(-0.25rem); 
     }

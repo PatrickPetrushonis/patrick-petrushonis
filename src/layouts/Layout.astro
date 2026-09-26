@@ -1,0 +1,76 @@
+---
+// src/layouts/Layout.astro
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import '../styles/main.scss';
+
+// Props: { pagename?: string }
+const { pagename = 'Home' } = Astro.props;
+const isHomePage = Astro.url.pathname === '/';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <!-- A <title> in the served HTML is visible to link-preview
+         scrapers and crawlers that don't execute JS. -->
+    <title>Patrick Petrushonis - {pagename}</title>
+  </head>
+  <body>
+    <!--
+      .main-container carries position: relative (defined in
+      _main.scss), which is what the footer's position: absolute;
+      bottom: 0 resolves against. #section-top is a child of
+      .main-container.
+    -->
+    <div class="main-container">
+      <div id="section-top" class="main-content">
+        <Header isHomePage={isHomePage} />
+
+        <slot />
+
+        {pagename !== 'Home' && <ScrollToTop />}
+
+        <Footer />
+      </div>
+    </div>
+
+    <!-- Target for initFooterPadding below - a real stylesheet rule
+         generated at runtime, not an inline style on #section-top
+         itself. Starts empty; populated on load. -->
+    <style id="footer-padding-style"></style>
+
+    <script>
+      import { formatPreElements } from '../utils/pre';
+      import { initFooterPadding } from '../utils/layout';
+      import { initHashNavigationOnLoad } from '../utils/scroll';
+
+      // Dedents any <pre> blocks on the page. Currently a no-op for
+      // this site's actual content (no <pre> elements exist in any
+      // page); handles any future content that adds one.
+      formatPreElements();
+
+      // The footer's position: absolute; bottom: 0 removes it from
+      // normal flow, so #section-top's own height doesn't naturally
+      // include it. This padding reserves the matching space so
+      // in-flow content isn't hidden underneath it, re-measured on
+      // resize since responsive text wrapping can change the
+      // footer's actual height.
+      initFooterPadding('#section-top', '.footer-container', 'footer-padding-style');
+
+      // Handles arriving at a URL like /#section-about from another
+      // page (e.g. a nav link clicked on the 404 page) with the same
+      // offset-aware smooth scroll used for in-page nav clicks,
+      // rather than the browser's own instant, offset-unaware native
+      // hash-scroll-on-load.
+      initHashNavigationOnLoad(77);
+    </script>
+  </body>
+</html>

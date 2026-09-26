@@ -65,3 +65,12 @@
     overflow: hidden;
   }
 }
+
+// The Astro conversion's tabbed selector uses hidden radio inputs to
+// drive .project__link/.project__details' existing .selected states
+// via JS, rather than an onClick handler setting component state - the
+// radio inputs themselves have no visual role and no equivalent in
+// the original markup.
+.project-tab__radio {
+  display: none;
+}

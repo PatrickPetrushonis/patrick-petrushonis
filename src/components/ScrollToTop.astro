@@ -1,0 +1,24 @@
+---
+// src/components/ScrollToTop.astro
+// A plain absolute path resolves correctly from any route depth on a
+// static host.
+---
+
+<a class="button__return-top" id="scroll-to-top" href="#section-top">
+  <img src="/app/img/icon-arrow-up.svg" alt="Return to top" />
+</a>
+
+<script>
+  import { smoothScrollTo, initScrollThresholdClass } from '../utils/scroll';
+
+  // Scroll-triggered visibility can't be known at build time, so this
+  // needs runtime JS.
+  const link = document.getElementById('scroll-to-top');
+  if (link) initScrollThresholdClass(link, 100, 'is-visible');
+
+  // Scrolls to #section-top's own position with zero offset.
+  link?.addEventListener('click', (e) => {
+    e.preventDefault();
+    smoothScrollTo('#section-top', 0);
+  });
+</script>
