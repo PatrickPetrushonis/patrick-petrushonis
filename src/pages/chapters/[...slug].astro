@@ -1,0 +1,39 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PageSection from '../../components/PageSection.astro';
+import { getPublishedChaptersSorted, estimateReadingStats } from '../../lib/prose.js';
+
+export async function getStaticPaths() {
+  const chapters = await getPublishedChaptersSorted();
+  return chapters.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      prev: index > 0 ? chapters[index - 1] : null,
+      next: index < chapters.length - 1 ? chapters[index + 1] : null,
+    },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+const { wordCount, readTimeMinutes } = estimateReadingStats(entry.body);
+---
+
+<Layout pagename={entry.data.title} description={entry.data.description}>
+  <PageSection>
+    <p class="chapter__meta">Volume {entry.data.volume}, Chapter {entry.data.chapterNumber}</p>
+    <h1>{entry.data.title}</h1>
+    <p class="chapter__meta">{wordCount} words - about {readTimeMinutes} min read</p>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="chapter__nav" aria-label="Chapter navigation">
+      {prev && <a href={`/chapters/${prev.id}/`}>Previous chapter</a>}
+      {next && <a class="chapter__nav-link--next" href={`/chapters/${next.id}/`}>Next chapter</a>}
+    </nav>
+  </PageSection>
+</Layout>

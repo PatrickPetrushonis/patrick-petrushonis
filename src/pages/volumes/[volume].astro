@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageSection from '../../components/PageSection.astro';
+import { getPublishedChaptersSorted } from '../../lib/prose.js';
+import { getVolumes } from '../../lib/volumes.js';
+
+export async function getStaticPaths() {
+  const chapters = await getPublishedChaptersSorted();
+  return getVolumes(chapters).map((volume) => ({
+    params: { volume: String(volume) },
+    props: { chapters: chapters.filter((c) => c.data.volume === volume) },
+  }));
+}
+
+const { volume } = Astro.params;
+const { chapters } = Astro.props;
+---
+
+<Layout pagename={`Volume ${volume}`}>
+  <PageSection>
+    <h1>Volume {volume}</h1>
+    <ul class="chapter-list">
+      {chapters.map((entry) => (
+        <li>
+          <a href={`/chapters/${entry.id}/`}>
+            Chapter {entry.data.chapterNumber}: {entry.data.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </PageSection>
+</Layout>
