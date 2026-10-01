@@ -1,0 +1,42 @@
+@use 'functions' as *;
+
+// Theme roles. Every theme-dependent color in the stylesheets is read
+// through theme(<role>) from these custom properties.
+//
+// Light values are the default. Dark values apply when <html> has
+// data-theme="dark", or, with no data-theme attribute (scripts disabled),
+// when the operating system prefers dark.
+
+@mixin theme-light {
+	color-scheme: light;
+	--surface: #{color(gray, light)};
+	--text: #{color(gray, jet)};
+	--text-muted: #{color(gray, mid)};
+	--link: #{color(primary, mild)};
+	--focus: #{color(primary, mild)};
+	--border: #{color(gray, mid)};
+	--border-subtle: #{color(gray, mild)};
+	--border-strong: #{color(gray, mid)};
+	--fill-strong: #{color(gray, jet)};
+}
+
+@mixin theme-dark {
+	color-scheme: dark;
+	--surface: #{color(gray, jet)};
+	--text: #{color(gray, light)};
+	--text-muted: #{color(gray, mild)};
+	--link: #{color(primary, light)};
+	--focus: #{color(primary, light)};
+	--border: #{color(gray, mid)};
+	--border-subtle: #{color(gray, dark)};
+	--border-strong: #{color(gray, mild)};
+	--fill-strong: #{color(gray, mid)};
+}
+
+:root { @include theme-light; }
+
+:root[data-theme='dark'] { @include theme-dark; }
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme]) { @include theme-dark; }
+}

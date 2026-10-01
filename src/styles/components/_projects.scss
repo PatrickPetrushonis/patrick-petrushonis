@@ -1,0 +1,64 @@
+@use '../utilities' as *;
+
+.project__item {
+  display: flex;
+  margin: $space-md 0;
+}
+
+.project__link {
+  background: color(primary, mild);
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: $space-xs;
+  transition: $transition;
+  width: 100%;
+
+  @include breakpoint($small-screen) {
+    padding: $space-md;
+  }
+
+  &.selected {
+    border-color: theme(border-strong);
+  }
+
+  &:hover {
+    transform: scale(1.05, 1.05);
+    background: color(primary, light);
+  }
+}
+
+.project__image {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-height: 128px;
+  max-width: 100%;
+}
+
+// Collapsed by default. .selected expands the block; only margin and
+// padding animate, height and opacity change at once.
+.project__details {
+  border: 1px solid theme(border);
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 0 $space-md;
+  transition: margin 0.5s, padding 0.5s;
+
+  &.selected {
+    height: auto;
+    margin: 0 0 $space-md;
+    opacity: 1;
+    padding: $space-md;
+  }
+
+  &:not(.selected) {
+    overflow: hidden;
+  }
+}
+
+// Hidden radio inputs hold each group's selected project; the script in
+// Home.astro mirrors their state onto .selected.
+.project-tab__radio {
+  display: none;
+}

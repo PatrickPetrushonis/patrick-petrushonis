@@ -3,24 +3,42 @@
     "id": "ashes-of-creation",
     "title": "Ashes of Creation",
     "order": 1,
-    "details": "<p>Senior Software Engineer at <strong>Intrepid Studios</strong> (2024 - 2026) for <a href='https://ashesofcreation.com/' target='_blank' rel='noopener noreferrer'>Ashes of Creation</a>, a node-based MMORPG.</p><p>Key contributions:</p><ul><li>Optimized character animation instances with templating and multi-threading</li><li>Created an interfaceable loading screen transition manager subsystem</li><li>Hardened mesh merge components for character creation systems</li><li>Collaborated with VFX artists on replicated gameplay effects</li></ul>"
+    "category": "game-development",
+    "details": "<p>Senior Software Engineer at <strong>Intrepid Studios</strong> (2024 - 2026) for Ashes of Creation, a node-based MMORPG.</p><p>Key contributions:</p><ul><li>Optimized character animation instances with templating and multi-threading</li><li>Created an interfaceable loading screen transition manager subsystem</li><li>Hardened mesh merge components for character creation systems</li><li>Collaborated with VFX artists on replicated gameplay effects</li></ul>"
   },
   {
     "id": "palia",
     "title": "Palia",
     "order": 2,
+    "category": "game-development",
     "details": "<p>Game Engineer at <strong>Singularity6</strong> (2022 - 2024) for <a href='https://palia.com/' target='_blank' rel='noopener noreferrer'>Palia</a>, a cozy community simulation MMO for Switch and PC.</p><p>Key contributions:</p><ul><li>Implemented traversal/climbing system based on player feedback</li><li>Optimized performance for low-end hardware including mobile and Nintendo Switch</li><li>Built mass asset editing system using RPCs through UDP and TCP</li><li>Developed matchmaker working cross-team with back-end services using MQTT</li><li>Created multi-threaded asynchronous transition state machine</li><li>Collaborated on in-editor tools and Python automation with designers and tech artists</li></ul>"
   },
   {
     "id": "life-is-strange-double-exposure",
     "title": "Life is Strange: Double Exposure",
     "order": 3,
+    "category": "game-development",
     "details": "<p>Senior Programmer at <strong>Deck Nine Games</strong> (2021 - 2022) for <a href='https://lifeisstrange.square-enix-games.com/en-us/games/life-is-strange-double-exposure' target='_blank' rel='noopener noreferrer'>Life is Strange: Double Exposure</a> across multiple platforms.</p><p>Key contributions:</p><ul><li>Integrated character locomotion while directing required animation for state machines</li><li>Assisted cinematic creation using proprietary in-house tools</li><li>Mentored junior programmers with task delegation and code reviews</li></ul>"
   },
   {
     "id": "people-of-note",
     "title": "People of Note",
     "order": 4,
+    "category": "game-development",
     "details": "<p>Lead Gameplay Programmer at <strong>Iridium Studios</strong> (2020 - 2021) for <a href='https://playiridium.com/' target='_blank' rel='noopener noreferrer'>People of Note</a> on PC and Switch.</p><p>Key contributions:</p><ul><li>Architected a modular character customization system supporting runtime mesh, material, and skeletal swapping</li><li>Implemented asynchronous level streaming for seamless world traversal and dynamic content loading</li><li>Built a cinematic engine supporting scripted camera sequences and in-engine cutscenes</li><li>Designed a turn-based combat system with action queuing, initiative ordering, and state-driven encounter flow</li></ul>"
+  },
+  {
+    "id": "volume-1",
+    "title": "Volume 1",
+    "order": 5,
+    "category": "prose-writing",
+    "details": "<p>Placeholder description for Volume 1 - replace with the real series description.</p><p><a href='/volumes/1/'>Start reading Volume 1</a></p>"
+  },
+  {
+    "id": "volume-2",
+    "title": "Volume 2",
+    "order": 6,
+    "category": "prose-writing",
+    "details": "<p>Placeholder description for Volume 2 - replace with the real series description. New chapters release weekly.</p><p><a href='/volumes/2/'>Start reading Volume 2</a></p>"
   }
 ]

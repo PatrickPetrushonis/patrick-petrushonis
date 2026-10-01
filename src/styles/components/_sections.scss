@@ -1,0 +1,24 @@
+@use '../utilities' as *;
+
+// The rule-icon knockout patch is filled with the page surface so the
+// rule line does not show behind the icon in either theme.
+.section__container {
+  hr:after { background-color: theme(surface); }
+}
+
+.section__content {
+  margin: 0 auto;
+  max-width: $large-screen;
+  padding: $space-sm $space-md;
+
+  @include breakpoint($small-screen) {
+    padding: $space-md;
+  }
+}
+
+.section__title {
+  text-align: center;
+}
+
+.section__rule--about { @include rule-icon('about'); }
+.section__rule--projects { @include rule-icon('projects'); }

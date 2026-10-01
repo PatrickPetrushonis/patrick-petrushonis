@@ -1,0 +1,73 @@
+---
+// src/components/ThemeToggle.astro
+// Switches between light and dark. Layout.astro's inline <head> script
+// sets data-theme before first paint; this component flips it and
+// remembers the choice. Both use the localStorage key 'theme': keep
+// the key and the 'light' | 'dark' values in sync with that script.
+---
+
+<button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+  <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+  <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+  </svg>
+</button>
+
+<script>
+  type Theme = 'light' | 'dark';
+
+  const STORAGE_KEY = 'theme';
+  const root = document.documentElement;
+  const button = document.getElementById('theme-toggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function readStoredTheme(): Theme | null {
+    try {
+      const value = localStorage.getItem(STORAGE_KEY);
+      return value === 'light' || value === 'dark' ? value : null;
+    } catch {
+      // Storage can be unavailable (private mode, blocked cookies).
+      return null;
+    }
+  }
+
+  function storeTheme(theme: Theme) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
+      // The choice still applies for this page view.
+    }
+  }
+
+  function currentTheme(): Theme {
+    const attribute = root.getAttribute('data-theme');
+    if (attribute === 'light' || attribute === 'dark') return attribute;
+    return prefersDark.matches ? 'dark' : 'light';
+  }
+
+  // Sets the theme and keeps the button's accessible name describing
+  // the action a click performs.
+  function applyTheme(theme: Theme) {
+    root.setAttribute('data-theme', theme);
+    button?.setAttribute(
+      'aria-label',
+      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
+    );
+  }
+
+  applyTheme(currentTheme());
+
+  button?.addEventListener('click', () => {
+    const next: Theme = currentTheme() === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    storeTheme(next);
+  });
+
+  // With no saved choice, follow the operating system live.
+  prefersDark.addEventListener('change', (event) => {
+    if (readStoredTheme() === null) applyTheme(event.matches ? 'dark' : 'light');
+  });
+</script>

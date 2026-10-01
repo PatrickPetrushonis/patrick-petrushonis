@@ -1,0 +1,46 @@
+@use 'sass:math';
+@use '../utilities' as *;
+
+// Column width as a share of the row, minus the gutter.
+@function grid-basis($columns) {
+	@return calc(#{math.percentage(math.div($columns, $grid-columns))} - #{$grid-gutter});
+}
+
+.flex-content {
+	align-items: start;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex__small--alt {
+	align-items: stretch;
+}
+
+// Shared by every column class, independent of class order in markup.
+%flex-item {
+	flex: 1 1 100%;
+	margin: 0 0 $space-md;
+	max-width: 100%;
+	padding: 0 $space-xs;
+}
+
+// Columns from the smallest width up.
+@for $i from 1 through $grid-columns {
+	.flex__small--#{$i} {
+		@extend %flex-item;
+		flex: 1 1 grid-basis($i);
+	}
+}
+
+// Columns from $small-screen up. Emitted after the small set so a
+// large class wins when an element carries both.
+@for $i from 1 through $grid-columns {
+	.flex__large--#{$i} {
+		@extend %flex-item;
+
+		@include breakpoint($small-screen) {
+			flex: 1 1 grid-basis($i);
+			padding: 0 $space-sm;
+		}
+	}
+}

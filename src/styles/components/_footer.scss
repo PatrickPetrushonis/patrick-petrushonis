@@ -5,49 +5,50 @@
    bottom: 0;
    left: 0;
    width: 100%;
-   min-height: 55px;
+   min-height: $footer-height;
    background-color: color(primary, dark);
-   
+
+   :focus-visible { outline-color: color(gray, light); }
+
    .footer-controls {
       margin: 0 auto;
       position: relative;
       max-width: $large-screen;
       height: auto;
       text-align: left;
-      
+
       @include breakpoint($small-screen) { text-align: center; }
    }
 
    .footer-signature {
-      margin: 11px;
+      margin: $space-sm;
       display: inline-block;
       color: color(gray, light);
       font-size: 12px;
       line-height: 16px;
 
-      @include breakpoint($small-screen) { 
+      @include breakpoint($small-screen) {
          margin: 0;
-         line-height: 55px; 
+         line-height: $footer-height;
          text-align: center;
       }
-   }  
+   }
 }
 
 .social-icon__container {
    position: absolute;
    top: 0;
    right: 0;
-   padding: 0 11px;
+   padding: 0 $space-sm;
    width: auto;
    height: auto;
-   float: right;
-   line-height: 55px;
+   line-height: $footer-height;
    list-style: none;
-   
+
    .social-icon {
       padding: 0 8px;
       float: left;
-      
+
       .social-github { @include social-icon('github'); }
       .social-linkedin { @include social-icon('linkedin'); }
    }

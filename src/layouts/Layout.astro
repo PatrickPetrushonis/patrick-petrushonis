@@ -5,8 +5,8 @@ import Footer from '../components/Footer.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 import '../styles/main.scss';
 
-// Props: { pagename?: string }
-const { pagename = 'Home' } = Astro.props;
+// Props: { pagename?: string, description?: string }
+const { pagename = 'Home', description } = Astro.props;
 const isHomePage = Astro.url.pathname === '/';
 ---
 
@@ -22,11 +22,32 @@ const isHomePage = Astro.url.pathname === '/';
     <!-- A <title> in the served HTML is visible to link-preview
          scrapers and crawlers that don't execute JS. -->
     <title>Patrick Petrushonis - {pagename}</title>
+    {description && <meta name="description" content={description} />}
+
+    <!--
+      Sets data-theme on <html> before first paint: the saved choice if
+      there is one, otherwise the operating system preference. is:inline
+      keeps Astro from bundling or deferring it, which is what prevents a
+      flash of the wrong theme. The 'theme' storage key and its
+      'light' | 'dark' values are shared with ThemeToggle.astro.
+    -->
+    <script is:inline>
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <!--
       .main-container carries position: relative (defined in
-      _main.scss), which is what the footer's position: absolute;
+      _base.scss), which is what the footer's position: absolute;
       bottom: 0 resolves against. #section-top is a child of
       .main-container.
     -->
@@ -34,7 +55,9 @@ const isHomePage = Astro.url.pathname === '/';
       <div id="section-top" class="main-content">
         <Header isHomePage={isHomePage} />
 
-        <slot />
+        <div class="content">
+          <slot />
+        </div>
 
         {pagename !== 'Home' && <ScrollToTop />}
 

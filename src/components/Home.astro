@@ -1,99 +1,54 @@
 ---
 // src/components/Home.astro
 import { getCollection } from 'astro:content';
+import aboutData from '../content/about/about.json';
+import PageSection from './PageSection.astro';
+import ProjectGroup from './ProjectGroup.astro';
 
-const projectEntries = (await getCollection('projects')).sort(
+const allProjects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const gameDevEntries = allProjects.filter((e) => e.data.category === 'game-development');
+const proseEntries = allProjects.filter((e) => e.data.category === 'prose-writing');
 ---
 
-<div class="content">
-  <!-- About Section -->
-  <div class="section__container">
-    <div class="section__content">
-      <h2 class="section__title" id="section-about">About</h2>
-      <hr class="section__rule--about" />
-      <div class="flex-content flex__small--alt">
-        <div class="flex__small--12 flex__large--6 center">
-          <img
-            class="banner__portrait"
-            src="/app/img/profile-image.jpg"
-            alt="Patrick Petrushonis"
-          />
-        </div>
-        <div class="flex__small--12 flex__large--6">
-          <p>
-            Senior software engineer with 10+ years shipping games across PC, console, and mobile (including Ashes of Creation, Palia, and Life is Strange) at studios ranging from indie to AAA.
-          </p>
-          <p>
-            Specializes in C++ gameplay systems, multiplayer networking, and cross-platform CI/CD in Unreal Engine, with parallel full-stack web work in Angular, React, and Vue spanning client and agency projects.
-          </p>
-          <p>
-            SDK and platform experience spans Steamworks, PlayFab, Xbox Live, and Nintendo Switch, with recent work building multi-platform ADO pipelines and managing client libraries for Microsoft game services.
-          </p>
-          <p>
-            Consistently builds the tooling and infrastructure that lets designers and engineers move faster without breaking things. Owns systems end-to-end, from architecture and implementation to documentation, testing, and live-service maintenance.
-          </p>
-        </div>
-      </div>
+<PageSection>
+  <h2 class="section__title" id="section-about">About</h2>
+  <hr class="section__rule--about" />
+  <div class="flex-content flex__small--alt">
+    <div class="flex__small--12 flex__large--6 center">
+      <img
+        class="about__portrait"
+        src={aboutData.portrait.src}
+        alt={aboutData.portrait.alt}
+      />
+    </div>
+    <div class="flex__small--12 flex__large--6">
+      {aboutData.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
     </div>
   </div>
+</PageSection>
 
-  <!-- Projects Section -->
-  <div class="section__container">
-    <div class="section__content">
-      <h2 class="section__title" id="section-projects">Projects</h2>
-      <hr class="section__rule--projects" />
+<PageSection>
+  <h2 class="section__title" id="section-projects">Projects</h2>
+  <hr class="section__rule--projects" />
+  <ProjectGroup title="Game Development" group="game-development" entries={gameDevEntries} />
+  <!--<ProjectGroup title="Prose Writing" group="prose-writing" entries={proseEntries} /> -->
+</PageSection>
 
-      <!--
-        Tabbed selector: hidden radio inputs hold selection state,
-        buttons drive it via click handlers below.
-      -->
-      <div class="project-tabs">
-        {projectEntries.map((entry, index) => (
-          <input
-            type="radio"
-            name="project-tab"
-            id={`tab-${entry.id}`}
-            class="project-tab__radio"
-            checked={index === 0}
-          />
-        ))}
-
-        <div class="flex-content flex__small--alt project__nav">
-          {projectEntries.map((entry) => (
-            <div class="flex__small--3 project__item">
-              <button type="button" data-tab={`tab-${entry.id}`} class="project__link">
-                <img
-                  src={`/app/img/project-${entry.id}.webp`}
-                  class="project__image"
-                  alt={entry.data.title}
-                />
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {projectEntries.map((entry) => (
-          <div id={`project-${entry.id}`} class="project__details" data-for-tab={`tab-${entry.id}`}>
-            <h3>{entry.data.title}</h3>
-            <div set:html={entry.data.details} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</div>
-
-<script define:vars={{ projectIds: projectEntries.map((e) => e.id) }}>
-  // Not fully zero-JS, despite the radio/button markup above: a true
-  // CSS-only version needs either :has() (not universally supported
-  // yet) or one hand-written sibling-selector rule per project
-  // generated into the stylesheet, and neither is worth the
-  // complexity here. This toggles .selected - _projects.scss already
-  // defines both the thumbnail's border highlight and the details
-  // block's height/opacity transition for that class; nothing here
-  // needs to define how either one looks.
+<script define:vars={{ projectIds: allProjects.map((e) => e.id) }}>
+  // Not fully zero-JS: a CSS-only version needs either :has() (not
+  // universally supported yet) or one hand-written sibling-selector rule
+  // per project generated into the stylesheet, and neither is worth the
+  // complexity here. This toggles .selected on each project's thumbnail
+  // and details block; _projects.scss defines how each looks, including
+  // the margin/padding transition on the details block.
+  //
+  // The loop checks one entry's own radio state at a time, so the same
+  // logic covers every group without knowing which radio name an entry
+  // belongs to.
   function updateSelectedProject() {
     for (const id of projectIds) {
       const radio = document.getElementById(`tab-${id}`);
@@ -105,10 +60,10 @@ const projectEntries = (await getCollection('projects')).sort(
     }
   }
 
-  // A plain <button> doesn't natively drive a radio's checked state
-  // the way a label[for] association would - the click handler sets
-  // it directly, and calls updateSelectedProject() itself since a
-  // programmatic .checked assignment doesn't fire a change event.
+  // A plain <button> doesn't drive a radio's checked state the way a
+  // label[for] association would, so the click handler sets it directly
+  // and calls updateSelectedProject() itself: assigning .checked in
+  // script doesn't fire a change event.
   document.querySelectorAll('.project__link').forEach((link) => {
     link.addEventListener('click', () => {
       const targetId = link.getAttribute('data-tab');

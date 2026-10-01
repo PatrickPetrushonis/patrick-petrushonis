@@ -30,34 +30,7 @@
 	text-align: center !important;
 }
 
-.marg-top-0 { 
-	margin-top: 0 !important; 
-}
-
-.marg-bottom-0 { 
-	margin-bottom: 0 !important; 
-}
-
-.marg-left-0 { 
-	margin-left: 0 !important; 
-}
-
-.marg-right-0 { 
-	margin-right: 0 !important; 
-}
-
-.pad-top-0 { 
-	padding-top: 0 !important; 
-}
-
-.pad-bottom-0 { 
-	padding-bottom: 0 !important; 
-}
-
-.pad-left-0 { 
-	padding-left: 0 !important; 
-}
-
-.pad-right-0 { 
-	padding-right: 0 !important; 
+@each $side in top, right, bottom, left {
+	.marg-#{$side}-0 { margin-#{$side}: 0 !important; }
+	.pad-#{$side}-0 { padding-#{$side}: 0 !important; }
 }

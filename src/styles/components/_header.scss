@@ -2,16 +2,16 @@
 
 .header-container {
   position: fixed;
-  top: -65px;
+  top: -$header-height-mobile;
   width: 100%;
 
   overflow: hidden;
   z-index: $header-container;
   opacity: 0;
-  
+
   background-color: color(primary, dark);
   border-bottom: 1px solid color(primary, mid);
-  transition: all 0.3s ease-out;
+  transition: $transition;
 
   &.fixed {
     top: 0;
@@ -19,15 +19,17 @@
   }
 
   .button {
-    margin: 11px 0;
+    margin: $space-sm 0;
     border: none;
     border-radius: 0;
     font-weight: 700;
   }
+
+  :focus-visible { outline-color: color(gray, light); }
 }
 
 .header-container--slim {
-  @include breakpoint($small-screen) { 
+  @include breakpoint($small-screen) {
     .button {
       margin: 0;
     }
@@ -38,10 +40,10 @@
   margin: 0 auto;
   max-width: $large-screen;
   height: auto;
-  overflow: hidden; 
+  overflow: hidden;
 
   .header-logo {
-    margin: 0 0 0 22px;
+    margin: 0 0 0 $space-md;
     float: left;
     line-height: 33px;
   }
@@ -49,7 +51,7 @@
 
 .header-controls ul {
   margin: 0;
-  padding: 0 11px;
+  padding: 0 $space-sm;
   display: none;
   width: auto;
   height: auto;
@@ -58,18 +60,18 @@
   list-style: none;
 
   &.show-nav {
-    margin: 0 0 22px;
+    margin: 0 0 $space-md;
     width: 100%;
     display: block;
 
-    li { 
-      float: none; 
+    li {
+      float: none;
       text-align: right;
     }
   }
 
   li {
-    padding: 0 22px 0 0;
+    padding: 0 $space-md 0 0;
     float: left;
   }
 
@@ -77,7 +79,7 @@
 }
 
 .header-controls__nav-toggle {
-  margin: 20px 22px;
+  margin: 20px $space-md;
   position: relative;
   width: 28px;
   height: 24px;
@@ -91,6 +93,13 @@
     opacity: 0;
     z-index: 1;
     cursor: pointer;
+
+    // The checkbox is transparent, so the focus ring is drawn on the
+    // icon bar that follows it.
+    &:focus-visible + span {
+      outline: 2px solid color(gray, light);
+      outline-offset: 3px;
+    }
 
     &:checked + span {
       background: transparent;
@@ -108,16 +117,16 @@
   top: 9.5px;
   width: 100%;
   height: 5px;
-  background: color(gray, light);    
+  background: color(gray, light);
 
-  &:before, 
+  &:before,
   &:after {
-    position: absolute;    
+    position: absolute;
     width: 100%;
     height: 5px;
     content: "";
     background: color(gray, light);
-    transition: all 0.3s ease-out;
+    transition: $transition;
   }
 
   &:before { top: -9px; }

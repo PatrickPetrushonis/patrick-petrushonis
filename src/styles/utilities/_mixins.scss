@@ -6,53 +6,45 @@
 	@media screen and (min-width: $point) { @content; }
 }
 
+@mixin lift-on-hover {
+	transition: $transition;
+
+	&:hover { transform: translateY(-4px); }
+}
+
 @mixin social-icon($name) {
+	@include lift-on-hover;
 	background-image: url('/app/img/logo-' + $name + '.svg');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	display: block;	
+	display: block;
 	height: 22px;
-	transition: all 0.3s ease-in-out;
 	width: 22px;
-
-	&:hover { transform: translateY(-0.25rem); }
 }
 
 @mixin rule-icon($name) {
 	border: 0;
-	border-top: 1px solid color(gray, mid);
+	border-top: 1px solid theme(border);
 	display: block;
 	height: 1px;
-	margin: 0 0 44px;
+	margin: 0 0 $space-lg;
 	overflow: visible;
 	padding: 0;
 	position: relative;
 
- 	&:after {
-	    background-image: url('/app/img/rule-' + $name + '.svg');
-	    background-position: center;
-	    background-repeat: no-repeat;
-	    background-size: cover;
-	    content: "";
+	&:after {
+		background-image: url('/app/img/rule-' + $name + '.svg');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		content: "";
 		display: block;
-	    height: 12px;
-	    left: 50%;
-	    position: absolute;
-	    top: 0;
-	    transform: translateY(-50%) translateX(-50%);
-	    width: 12px;
-	}
-}
-
-@mixin banner($name, $mobile-pos) {
-	background: url('/app/img/banner-' + $name + '.jpg');
-	background-position: $mobile-pos;
-	background-repeat: no-repeat;
-	background-size: cover;
-	height: 100%;
-
-	@include breakpoint($small-screen) {
-		background-position: center left;
+		height: 12px;
+		left: 50%;
+		position: absolute;
+		top: 0;
+		transform: translateY(-50%) translateX(-50%);
+		width: 12px;
 	}
 }

@@ -1,0 +1,11 @@
+@use '../utilities' as *;
+
+.about__portrait {
+  background-color: theme(fill-strong);
+  border: 3px solid theme(fill-strong);
+  border-radius: 50%;
+  height: auto;
+  max-height: 256px;
+  max-width: 256px;
+  width: 100%;
+}

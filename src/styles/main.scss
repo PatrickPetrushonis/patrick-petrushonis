@@ -1,11 +1,15 @@
-@use 'components/header';
-@use 'components/footer';
-@use 'components/layout';
-@use 'components/main';
+@use 'utilities/themes';
 
-@use 'pages/banner';
-@use 'pages/buttons';
-@use 'pages/projects';
-@use 'pages/sections';
+@use 'base/base';
+@use 'base/grid';
+
+@use 'components/header';
+@use 'components/theme-toggle';
+@use 'components/footer';
+@use 'components/buttons';
+@use 'components/sections';
+@use 'components/about';
+@use 'components/projects';
+@use 'components/prose';
 
 @use 'utilities/helpers';

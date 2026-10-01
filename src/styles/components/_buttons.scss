@@ -5,49 +5,37 @@
     display: inline-block;
     font-size: 16px;
     line-height: 16px;
-    margin: 22px 0;
+    margin: $space-md 0;
     min-width: 80px;
-    padding: 11px;
+    padding: $space-sm;
     text-decoration: none;
     text-align: center;
-    transition: all 0.3s ease-out;
+    transition: $transition;
 
-    &:hover { 
+    &:hover {
         background-color: color(primary, mild);
         text-decoration: none;
     }
-
-    &.center { 
-        max-width: 120px; 
-    }
-
-    &.wide {
-        max-width: 240px;
-    }
-
-    &.full {
-        max-width: 100%;
-    }
 }
 
+// Fixed circle shown once the page is scrolled past the threshold that
+// ScrollToTop.astro's script sets (.is-visible). The arrow is an <img>
+// whose color comes from the SVG file; `color` below applies only to the
+// alt text if the image fails to load.
 .button__return-top {
-    background-color: color(gray, jet);
+    @include lift-on-hover;
+    background-color: theme(fill-strong);
     border-radius: 50%;
-    bottom: 66px;
-    color: white;
+    bottom: $return-top-offset;
+    color: color(gray, light);
     height: 44px;
     line-height: 44px;
     position: fixed;
-    right: 11px;
+    right: $space-sm;
     text-align: center;
     text-decoration: none;
-    transition: all 0.3s ease-in-out;
     width: 44px;
 
-    // Scroll-triggered visibility: hidden until scrolled past the
-    // threshold ScrollToTop.astro's script sets. The existing
-    // transition: all rule above already animates this, since it
-    // covers opacity along with the hover transform.
     opacity: 0;
     visibility: hidden;
 
@@ -56,11 +44,7 @@
         visibility: visible;
     }
 
-    &:hover { 
-        transform: translateY(-0.25rem); 
-    }
-
-    img {        
+    img {
         height: auto;
         padding: 0 0 5.5px;
         width: calc(100% - 22px);

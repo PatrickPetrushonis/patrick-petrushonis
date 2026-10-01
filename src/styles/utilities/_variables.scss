@@ -1,4 +1,5 @@
-// Colors accessible via nested maps
+// Brand palette. Theme roles (surface, text, border, ...) map these
+// tokens to light and dark values in _themes.scss.
 $color-map: (
     primary: (
         light   : #009bff,
@@ -6,11 +7,7 @@ $color-map: (
         mid     : #005d99,
         dark    : #002e4c
     ),
-    secondary: (
-        light   : #5d2659,
-        dark    : #2b275a
-    ),
-    gray: (     
+    gray: (
         light   : #f5f5f5,
         mild    : #bdbdbd,
         mid     : #616161,
@@ -19,19 +16,38 @@ $color-map: (
     )
 );
 
-// Media query upper sizes
-$mobile-screen: 480px;
+// Media query lower bounds (mobile first)
 $small-screen: 768px;
 $medium-screen: 1024px;
 $large-screen: 1366px;
 
-// Fonts
-$default-font: 'Oxygen', sans-serif;
-$header-font: 'Oxygen', sans-serif;
+// Font
+$font-family: 'Oxygen', sans-serif;
+
+// Spacing scale
+$space-xs: 5.5px;
+$space-sm: 11px;
+$space-md: 22px;
+$space-lg: 44px;
+
+// Fixed-bar geometry. The header is 61px tall at >=768px and 65px tall
+// below it (set by the hamburger); the footer is 55px.
+$header-height: 61px;
+$header-height-mobile: 65px;
+$footer-height: 55px;
+$return-top-offset: $footer-height + $space-sm;
+
+// Motion
+$transition: all 0.3s ease-out;
+
+// Grid
+$grid-columns: 12;
+$grid-gutter: $space-md;
+
+// Long-form reading
+$prose-measure: 68ch;
+$prose-font-size: 18px;
+$prose-line-height: 1.7;
 
 // Vertical indices
-$banner-container: 1000;
-$banner-canvas: -1;
-$banner-particle: 1002;
-$section-before: 1009;
 $header-container: 1010;

@@ -1,0 +1,12 @@
+{
+  "portrait": {
+    "src": "/app/img/profile-image.jpg",
+    "alt": "Patrick Petrushonis"
+  },
+  "paragraphs": [
+    "Senior software engineer with 10+ years shipping games across PC, console, and mobile (including Ashes of Creation, Palia, and Life is Strange) at studios ranging from indie to AAA.",
+    "Specializes in C++ gameplay systems, multiplayer networking, and cross-platform CI/CD in Unreal Engine, with parallel full-stack web work in Angular, React, and Vue spanning client and agency projects.",
+    "SDK and platform experience spans Steamworks, PlayFab, Xbox Live, and Nintendo Switch, with recent work building multi-platform ADO pipelines and managing client libraries for Microsoft game services.",
+    "Consistently builds the tooling and infrastructure that lets designers and engineers move faster without breaking things. Owns systems end-to-end, from architecture and implementation to documentation, testing, and live-service maintenance."
+  ]
+}

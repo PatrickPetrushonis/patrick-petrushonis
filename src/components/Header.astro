@@ -1,7 +1,15 @@
 ---
 // src/components/Header.astro
 // Props: { isHomePage: boolean }
+import { getPublishedChaptersSorted } from '../lib/prose.js';
+import { getVolumes } from '../lib/volumes.js';
+import ThemeToggle from './ThemeToggle.astro';
+
 const { isHomePage } = Astro.props;
+
+// One nav link per volume with published chapters; the same source the
+// volume pages are generated from.
+const volumes = getVolumes(await getPublishedChaptersSorted());
 ---
 
 <div class="header-container fixed" id="site-header">
@@ -32,6 +40,10 @@ const { isHomePage } = Astro.props;
       </label>
     </div>
 
+    <!-- Floats right after the hamburger: left of it on narrow screens,
+         rightmost on wide ones where the hamburger is hidden. -->
+    <ThemeToggle />
+
     <ul id="nav-list">
       <li>
         <a
@@ -51,6 +63,13 @@ const { isHomePage } = Astro.props;
           Projects
         </a>
       </li>
+      <!--{volumes.map((volume) => (
+        <li>
+          <a class="button" href={`/volumes/${volume}/`}>
+            Volume {volume}
+          </a>
+        </li>
+      ))}-->
     </ul>
   </div>
 </div>

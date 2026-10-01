@@ -1,0 +1,51 @@
+---
+// src/components/ProjectGroup.astro
+// One category of projects: a hidden radio per entry, a row of
+// thumbnails, and a details block per entry. Home.astro's script mirrors
+// each radio's state onto the .selected class of its thumbnail and
+// details block. The first entry is selected by default, and each group
+// has its own radio name so selections in one group never affect another.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  title: string;
+  group: string;
+  entries: CollectionEntry<'projects'>[];
+}
+
+const { title, group, entries } = Astro.props;
+---
+
+<h3>{title}</h3>
+<div>
+  {entries.map((entry, index) => (
+    <input
+      type="radio"
+      name={`project-tab-${group}`}
+      id={`tab-${entry.id}`}
+      class="project-tab__radio"
+      checked={index === 0}
+    />
+  ))}
+
+  <div class="flex-content flex__small--alt">
+    {entries.map((entry) => (
+      <div class="flex__small--3 project__item">
+        <button type="button" data-tab={`tab-${entry.id}`} class="project__link">
+          <img
+            src={`/app/img/project-${entry.id}.webp`}
+            class="project__image"
+            alt={entry.data.title}
+          />
+        </button>
+      </div>
+    ))}
+  </div>
+
+  {entries.map((entry) => (
+    <div id={`project-${entry.id}`} class="project__details" data-for-tab={`tab-${entry.id}`}>
+      <h3>{entry.data.title}</h3>
+      <div set:html={entry.data.details} />
+    </div>
+  ))}
+</div>
