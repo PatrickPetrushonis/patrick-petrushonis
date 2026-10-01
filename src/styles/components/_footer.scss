@@ -1,55 +1,55 @@
 @use '../utilities' as *;
 
 .footer-container {
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   width: 100%;
-   min-height: $footer-height;
-   background-color: color(primary, dark);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: color(primary, dark);
+  min-height: $footer-height;
+  width: 100%;
 
-   :focus-visible { outline-color: color(gray, light); }
+  :focus-visible { outline-color: color(gray, light); }
 
-   .footer-controls {
-      margin: 0 auto;
-      position: relative;
-      max-width: $large-screen;
-      height: auto;
-      text-align: left;
+  .footer-controls {
+    position: relative;
+    height: auto;
+    margin: 0 auto;
+    max-width: $large-screen;
+    text-align: left;
 
-      @include breakpoint($small-screen) { text-align: center; }
-   }
+    @include breakpoint($small-screen) { text-align: center; }
+  }
 
-   .footer-signature {
-      margin: $space-sm;
-      display: inline-block;
-      color: color(gray, light);
-      font-size: 12px;
-      line-height: 16px;
+  .footer-signature {
+    color: color(gray, light);
+    display: inline-block;
+    font-size: 12px;
+    line-height: 16px;
+    margin: $space-sm;
 
-      @include breakpoint($small-screen) {
-         margin: 0;
-         line-height: $footer-height;
-         text-align: center;
-      }
-   }
+    @include breakpoint($small-screen) {
+      line-height: $footer-height;
+      margin: 0;
+      text-align: center;
+    }
+  }
 }
 
 .social-icon__container {
-   position: absolute;
-   top: 0;
-   right: 0;
-   padding: 0 $space-sm;
-   width: auto;
-   height: auto;
-   line-height: $footer-height;
-   list-style: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: auto;
+  line-height: $footer-height;
+  list-style: none;
+  padding: 0 $space-sm;
+  width: auto;
 
-   .social-icon {
-      padding: 0 8px;
-      float: left;
+  .social-icon {
+    float: left;
+    padding: 0 8px;
 
-      .social-github { @include social-icon('github'); }
-      .social-linkedin { @include social-icon('linkedin'); }
-   }
+    .social-github { @include social-icon('github'); }
+    .social-linkedin { @include social-icon('linkedin'); }
+  }
 }

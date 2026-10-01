@@ -2,35 +2,35 @@
 @use 'variables' as *;
 
 .mobile-only {
-	@include breakpoint($small-screen) { display: none; }
+  @include breakpoint($small-screen) { display: none; }
 }
 
 .hide-on-mobile {
-	display: none;
+  display: none;
 
-	@include breakpoint($small-screen) { display: block; }
+  @include breakpoint($small-screen) { display: block; }
 }
 
 .hide-on-mobile__inline {
-	display: none;
+  display: none;
 
-	@include breakpoint($small-screen) { display: inline-block; }
+  @include breakpoint($small-screen) { display: inline-block; }
 }
 
 .hide {
-	opacity: 0;
-	visibility: hidden;
-	display: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .center {
-	margin-right: auto !important;
-	margin-left: auto !important;
-	display: block !important;
-	text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
 }
 
 @each $side in top, right, bottom, left {
-	.marg-#{$side}-0 { margin-#{$side}: 0 !important; }
-	.pad-#{$side}-0 { padding-#{$side}: 0 !important; }
+  .marg-#{$side}-0 { margin-#{$side}: 0 !important; }
+  .pad-#{$side}-0 { padding-#{$side}: 0 !important; }
 }

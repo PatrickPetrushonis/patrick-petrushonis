@@ -1,5 +1,7 @@
 @use '../utilities' as *;
 
+// Script-toggled: .selected on .project__link and .project__details
+// (set by Home.astro).
 .project__item {
   display: flex;
   margin: $space-md 0;
@@ -13,17 +15,17 @@
   transition: $transition;
   width: 100%;
 
-  @include breakpoint($small-screen) {
-    padding: $space-md;
-  }
-
   &.selected {
     border-color: theme(border-strong);
   }
 
   &:hover {
-    transform: scale(1.05, 1.05);
     background: color(primary, light);
+    transform: scale(1.05, 1.05);
+  }
+
+  @include breakpoint($small-screen) {
+    padding: $space-md;
   }
 }
 
@@ -36,7 +38,7 @@
 }
 
 // Collapsed by default. .selected expands the block; only margin and
-// padding animate, height and opacity change at once.
+// padding animate, height, opacity, and visibility change at once.
 .project__details {
   border: 1px solid theme(border);
   height: 0;
@@ -44,12 +46,14 @@
   opacity: 0;
   padding: 0 $space-md;
   transition: margin 0.5s, padding 0.5s;
+  visibility: hidden;
 
   &.selected {
     height: auto;
     margin: 0 0 $space-md;
     opacity: 1;
     padding: $space-md;
+    visibility: visible;
   }
 
   &:not(.selected) {

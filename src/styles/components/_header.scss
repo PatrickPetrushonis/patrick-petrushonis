@@ -1,28 +1,32 @@
 @use '../utilities' as *;
 
+// Header bar: a fixed brand bar, identical in both themes.
+// Script-toggled: .show-nav on #nav-list and .header-container--slim on
+// .header-container (both set by Header.astro). .fixed is written into
+// the markup by Header.astro.
 .header-container {
   position: fixed;
   top: -$header-height-mobile;
-  width: 100%;
-
-  overflow: hidden;
-  z-index: $header-container;
-  opacity: 0;
-
   background-color: color(primary, dark);
   border-bottom: 1px solid color(primary, mid);
+  opacity: 0;
+  overflow: hidden;
   transition: $transition;
+  visibility: hidden;
+  width: 100%;
+  z-index: $header-container;
 
   &.fixed {
     top: 0;
     opacity: 1;
+    visibility: visible;
   }
 
   .button {
-    margin: $space-sm 0;
     border: none;
     border-radius: 0;
     font-weight: 700;
+    margin: $space-sm 0;
   }
 
   :focus-visible { outline-color: color(gray, light); }
@@ -37,32 +41,32 @@
 }
 
 .header-controls {
+  height: auto;
   margin: 0 auto;
   max-width: $large-screen;
-  height: auto;
   overflow: hidden;
 
   .header-logo {
-    margin: 0 0 0 $space-md;
     float: left;
     line-height: 33px;
+    margin: 0 0 0 $space-md;
   }
 }
 
 .header-controls ul {
-  margin: 0;
-  padding: 0 $space-sm;
   display: none;
-  width: auto;
-  height: auto;
   float: right;
+  height: auto;
   line-height: 33px;
   list-style: none;
+  margin: 0;
+  padding: 0 $space-sm;
+  width: auto;
 
   &.show-nav {
+    display: block;
     margin: 0 0 $space-md;
     width: 100%;
-    display: block;
 
     li {
       float: none;
@@ -71,28 +75,28 @@
   }
 
   li {
-    padding: 0 $space-md 0 0;
     float: left;
+    padding: 0 $space-md 0 0;
   }
 
   @include breakpoint($small-screen) { display: block; }
 }
 
 .header-controls__nav-toggle {
-  margin: 20px $space-md;
   position: relative;
-  width: 28px;
-  height: 24px;
   float: right;
+  height: 24px;
+  margin: 20px $space-md;
+  width: 28px;
 
-  input[type="checkbox"] {
-    margin: 0;
+  input[type='checkbox'] {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    z-index: 1;
     cursor: pointer;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: 1;
 
     // The checkbox is transparent, so the focus ring is drawn on the
     // icon bar that follows it.
@@ -101,12 +105,9 @@
       outline-offset: 3px;
     }
 
-    &:checked + span {
-      background: transparent;
-
-      &:before { transform: rotate(-45deg) translate(-4px, 12px); }
-      &:after { transform: rotate(45deg) translate(-1px, -8px); }
-    }
+    &:checked + span { background: transparent; }
+    &:checked + span:before { transform: rotate(-45deg) translate(-4px, 12px); }
+    &:checked + span:after { transform: rotate(45deg) translate(-1px, -8px); }
   }
 
   @include breakpoint($small-screen) { display: none; }
@@ -115,18 +116,18 @@
 .nav-icon {
   position: absolute;
   top: 9.5px;
-  width: 100%;
-  height: 5px;
   background: color(gray, light);
+  height: 5px;
+  width: 100%;
 
   &:before,
   &:after {
     position: absolute;
-    width: 100%;
-    height: 5px;
-    content: "";
     background: color(gray, light);
+    content: '';
+    height: 5px;
     transition: $transition;
+    width: 100%;
   }
 
   &:before { top: -9px; }

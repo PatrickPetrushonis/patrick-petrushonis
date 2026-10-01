@@ -39,10 +39,9 @@ const proseEntries = allProjects.filter((e) => e.data.category === 'prose-writin
 </PageSection>
 
 <script define:vars={{ projectIds: allProjects.map((e) => e.id) }}>
-  // Not fully zero-JS: a CSS-only version needs either :has() (not
-  // universally supported yet) or one hand-written sibling-selector rule
-  // per project generated into the stylesheet, and neither is worth the
-  // complexity here. This toggles .selected on each project's thumbnail
+  // Not fully zero-JS: a CSS-only version needs either :has() or one
+  // hand-written sibling-selector rule per project generated into the
+  // stylesheet, and neither is worth the complexity here. This toggles .selected on each project's thumbnail
   // and details block; _projects.scss defines how each looks, including
   // the margin/padding transition on the details block.
   //

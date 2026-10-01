@@ -8,29 +8,29 @@
 // when the operating system prefers dark.
 
 @mixin theme-light {
-	color-scheme: light;
-	--surface: #{color(gray, light)};
-	--text: #{color(gray, jet)};
-	--text-muted: #{color(gray, mid)};
-	--link: #{color(primary, mild)};
-	--focus: #{color(primary, mild)};
-	--border: #{color(gray, mid)};
-	--border-subtle: #{color(gray, mild)};
-	--border-strong: #{color(gray, mid)};
-	--fill-strong: #{color(gray, jet)};
+  --border: #{color(gray, mid)};
+  --border-strong: #{color(gray, mid)};
+  --border-subtle: #{color(gray, mild)};
+  --fill-strong: #{color(gray, jet)};
+  --focus: #{color(primary, mild)};
+  --link: #{color(primary, mild)};
+  --surface: #{color(gray, light)};
+  --text: #{color(gray, jet)};
+  --text-muted: #{color(gray, mid)};
+  color-scheme: light;
 }
 
 @mixin theme-dark {
-	color-scheme: dark;
-	--surface: #{color(gray, jet)};
-	--text: #{color(gray, light)};
-	--text-muted: #{color(gray, mild)};
-	--link: #{color(primary, light)};
-	--focus: #{color(primary, light)};
-	--border: #{color(gray, mid)};
-	--border-subtle: #{color(gray, dark)};
-	--border-strong: #{color(gray, mild)};
-	--fill-strong: #{color(gray, mid)};
+  --border: #{color(gray, mid)};
+  --border-strong: #{color(gray, mild)};
+  --border-subtle: #{color(gray, dark)};
+  --fill-strong: #{color(gray, mid)};
+  --focus: #{color(primary, light)};
+  --link: #{color(primary, light)};
+  --surface: #{color(gray, jet)};
+  --text: #{color(gray, light)};
+  --text-muted: #{color(gray, mild)};
+  color-scheme: dark;
 }
 
 :root { @include theme-light; }
@@ -38,5 +38,5 @@
 :root[data-theme='dark'] { @include theme-dark; }
 
 @media (prefers-color-scheme: dark) {
-	:root:not([data-theme]) { @include theme-dark; }
+  :root:not([data-theme]) { @include theme-dark; }
 }

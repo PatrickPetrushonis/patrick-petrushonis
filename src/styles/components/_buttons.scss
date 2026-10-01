@@ -1,21 +1,21 @@
 @use '../utilities' as *;
 
 .button {
-    color: color(gray, light);
-    display: inline-block;
-    font-size: 16px;
-    line-height: 16px;
-    margin: $space-md 0;
-    min-width: 80px;
-    padding: $space-sm;
-    text-decoration: none;
-    text-align: center;
-    transition: $transition;
+  color: color(gray, light);
+  display: inline-block;
+  font-size: 16px;
+  line-height: 16px;
+  margin: $space-md 0;
+  min-width: 80px;
+  padding: $space-sm;
+  text-align: center;
+  text-decoration: none;
+  transition: $transition;
 
-    &:hover {
-        background-color: color(primary, mild);
-        text-decoration: none;
-    }
+  &:hover {
+    background-color: color(primary, mild);
+    text-decoration: none;
+  }
 }
 
 // Fixed circle shown once the page is scrolled past the threshold that
@@ -23,31 +23,31 @@
 // whose color comes from the SVG file; `color` below applies only to the
 // alt text if the image fails to load.
 .button__return-top {
-    @include lift-on-hover;
-    background-color: theme(fill-strong);
-    border-radius: 50%;
-    bottom: $return-top-offset;
-    color: color(gray, light);
-    height: 44px;
-    line-height: 44px;
-    position: fixed;
-    right: $space-sm;
-    text-align: center;
-    text-decoration: none;
-    width: 44px;
+  position: fixed;
+  right: $space-sm;
+  bottom: $return-top-offset;
+  background-color: theme(fill-strong);
+  border-radius: 50%;
+  color: color(gray, light);
+  height: 44px;
+  line-height: 44px;
+  opacity: 0;
+  text-align: center;
+  text-decoration: none;
+  visibility: hidden;
+  width: 44px;
 
-    opacity: 0;
-    visibility: hidden;
+  @include lift-on-hover;
 
-    &.is-visible {
-        opacity: 1;
-        visibility: visible;
-    }
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
-    img {
-        height: auto;
-        padding: 0 0 5.5px;
-        width: calc(100% - 22px);
-        vertical-align: middle;
-    }
+  img {
+    height: auto;
+    padding: 0 0 $space-xs;
+    vertical-align: middle;
+    width: calc(100% - #{$space-md});
+  }
 }

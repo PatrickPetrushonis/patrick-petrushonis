@@ -4,47 +4,49 @@
 // left of the hamburger below $small-screen and rightmost above it
 // (the hamburger is hidden there). 40px tall with 12px margins matches
 // the 64px hamburger row; 38px with $space-sm margins matches .button.
+// Script-toggled: .header-container--slim (Header.astro) removes the
+// vertical margins above $small-screen; [data-theme] on <html>
+// (Layout.astro, ThemeToggle.astro) selects which icon shows.
 .theme-toggle {
-  margin: 12px 0;
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  float: right;
-  display: flex;
   align-items: center;
-  justify-content: center;
-
   background: transparent;
   border: none;
   border-radius: 0;
   color: color(gray, light);
   cursor: pointer;
+  display: flex;
+  float: right;
+  height: 40px;
+  justify-content: center;
+  margin: 12px 0;
+  padding: 0;
   transition: $transition;
+  width: 40px;
 
   &:hover { background-color: color(primary, mild); }
 
   @include breakpoint($small-screen) {
+    height: 38px;
     margin: $space-sm $space-md $space-sm 0;
     width: 38px;
-    height: 38px;
   }
 }
 
 .header-container--slim .theme-toggle {
   @include breakpoint($small-screen) {
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
   }
 }
 
 .theme-toggle__icon {
-  width: 20px;
-  height: 20px;
   fill: none;
+  height: 20px;
   stroke: currentColor;
-  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-width: 2;
+  width: 20px;
 }
 
 // The icon shows the theme a click switches to: moon in light, sun in dark.

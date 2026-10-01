@@ -3,48 +3,49 @@
 
 // Mobile first breakpoint
 @mixin breakpoint($point) {
-	@media screen and (min-width: $point) { @content; }
+  @media screen and (min-width: $point) { @content; }
 }
 
 @mixin lift-on-hover {
-	transition: $transition;
+  transition: $transition;
 
-	&:hover { transform: translateY(-4px); }
+  &:hover { transform: translateY(-4px); }
 }
 
 @mixin social-icon($name) {
-	@include lift-on-hover;
-	background-image: url('/app/img/logo-' + $name + '.svg');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	display: block;
-	height: 22px;
-	width: 22px;
+  background-image: url('/app/img/logo-' + $name + '.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  height: 22px;
+  width: 22px;
+
+  @include lift-on-hover;
 }
 
 @mixin rule-icon($name) {
-	border: 0;
-	border-top: 1px solid theme(border);
-	display: block;
-	height: 1px;
-	margin: 0 0 $space-lg;
-	overflow: visible;
-	padding: 0;
-	position: relative;
+  position: relative;
+  border: 0;
+  border-top: 1px solid theme(border);
+  display: block;
+  height: 1px;
+  margin: 0 0 $space-lg;
+  overflow: visible;
+  padding: 0;
 
-	&:after {
-		background-image: url('/app/img/rule-' + $name + '.svg');
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		content: "";
-		display: block;
-		height: 12px;
-		left: 50%;
-		position: absolute;
-		top: 0;
-		transform: translateY(-50%) translateX(-50%);
-		width: 12px;
-	}
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-image: url('/app/img/rule-' + $name + '.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+    display: block;
+    height: 12px;
+    transform: translateY(-50%) translateX(-50%);
+    width: 12px;
+  }
 }

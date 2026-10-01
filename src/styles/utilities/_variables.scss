@@ -1,19 +1,19 @@
 // Brand palette. Theme roles (surface, text, border, ...) map these
 // tokens to light and dark values in _themes.scss.
 $color-map: (
-    primary: (
-        light   : #009bff,
-        mild    : #006cb2,
-        mid     : #005d99,
-        dark    : #002e4c
-    ),
-    gray: (
-        light   : #f5f5f5,
-        mild    : #bdbdbd,
-        mid     : #616161,
-        dark    : #424242,
-        jet     : #212121
-    )
+  primary: (
+    light: #009bff,
+    mild: #006cb2,
+    mid: #005d99,
+    dark: #002e4c
+  ),
+  gray: (
+    light: #f5f5f5,
+    mild: #bdbdbd,
+    mid: #616161,
+    dark: #424242,
+    jet: #212121
+  )
 );
 
 // Media query lower bounds (mobile first)

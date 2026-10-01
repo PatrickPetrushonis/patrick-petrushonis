@@ -1,22 +1,22 @@
 @use 'variables' as *;
 
-@use "sass:map";
+@use 'sass:map';
 
 // Brand color from $color-map, resolved at build time. Use this for
 // colors that stay the same in both themes (header, footer, buttons).
 @function color($color, $tone: 'light') {
-	@if not map.has-key($color-map, $color) {
-		@error "Unknown color group: #{$color}";
-	}
-	$group: map.get($color-map, $color);
-	@if not map.has-key($group, $tone) {
-		@error "Unknown tone '#{$tone}' in color group '#{$color}'";
-	}
-	@return map.get($group, $tone);
+  @if not map.has-key($color-map, $color) {
+    @error 'Unknown color group: #{$color}';
+  }
+  $group: map.get($color-map, $color);
+  @if not map.has-key($group, $tone) {
+    @error 'Unknown tone #{$tone} in color group #{$color}';
+  }
+  @return map.get($group, $tone);
 }
 
 // Theme role (surface, text, border, ...) as a custom-property reference
 // that resolves at runtime. Roles are defined in _themes.scss.
 @function theme($role) {
-	@return var(--#{$role});
+  @return var(--#{$role});
 }
