@@ -37,3 +37,17 @@ export function initHashNavigationOnLoad(offset = 77) {
   if (!hash) return;
   setTimeout(() => smoothScrollTo(hash, offset), 100);
 }
+
+// Full behavior for a scroll-to-top button: visible only past a
+// scroll threshold, scrolls to targetId with zero offset when
+// clicked. Bundles initScrollThresholdClass and smoothScrollTo so a
+// component only needs this one call, not its own wiring around both.
+export function initScrollToTopButton(buttonId, targetId) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  initScrollThresholdClass(button, 100, 'is-visible');
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    smoothScrollTo(targetId, 0);
+  });
+}

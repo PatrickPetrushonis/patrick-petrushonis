@@ -4,11 +4,14 @@ import { getCollection } from 'astro:content';
 import aboutData from '../content/about/about.json';
 import PageSection from './PageSection.astro';
 import ProjectGroup from './ProjectGroup.astro';
+import { SHOW_PROSE } from '../lib/features.js';
 
 const allProjects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order,
 );
 const gameDevEntries = allProjects.filter((e) => e.data.category === 'game-development');
+// Rendering is gated by SHOW_PROSE below, not this filter - cheap
+// enough either way against an already-in-memory array.
 const proseEntries = allProjects.filter((e) => e.data.category === 'prose-writing');
 ---
 
@@ -35,43 +38,7 @@ const proseEntries = allProjects.filter((e) => e.data.category === 'prose-writin
   <h2 class="section__title" id="section-projects">Projects</h2>
   <hr class="section__rule--projects" />
   <ProjectGroup title="Game Development" group="game-development" entries={gameDevEntries} />
-  <!--<ProjectGroup title="Prose Writing" group="prose-writing" entries={proseEntries} /> -->
+  {SHOW_PROSE && (
+    <ProjectGroup title="Prose Writing" group="prose-writing" entries={proseEntries} />
+  )}
 </PageSection>
-
-<script define:vars={{ projectIds: allProjects.map((e) => e.id) }}>
-  // Not fully zero-JS: a CSS-only version needs either :has() or one
-  // hand-written sibling-selector rule per project generated into the
-  // stylesheet, and neither is worth the complexity here. This toggles .selected on each project's thumbnail
-  // and details block; _projects.scss defines how each looks, including
-  // the margin/padding transition on the details block.
-  //
-  // The loop checks one entry's own radio state at a time, so the same
-  // logic covers every group without knowing which radio name an entry
-  // belongs to.
-  function updateSelectedProject() {
-    for (const id of projectIds) {
-      const radio = document.getElementById(`tab-${id}`);
-      const link = document.querySelector(`[data-tab="tab-${id}"]`);
-      const details = document.querySelector(`[data-for-tab="tab-${id}"]`);
-      if (!(radio instanceof HTMLInputElement) || !link || !details) continue;
-      link.classList.toggle('selected', radio.checked);
-      details.classList.toggle('selected', radio.checked);
-    }
-  }
-
-  // A plain <button> doesn't drive a radio's checked state the way a
-  // label[for] association would, so the click handler sets it directly
-  // and calls updateSelectedProject() itself: assigning .checked in
-  // script doesn't fire a change event.
-  document.querySelectorAll('.project__link').forEach((link) => {
-    link.addEventListener('click', () => {
-      const targetId = link.getAttribute('data-tab');
-      const radio = document.getElementById(targetId);
-      if (!(radio instanceof HTMLInputElement)) return;
-      radio.checked = true;
-      updateSelectedProject();
-    });
-  });
-
-  updateSelectedProject();
-</script>

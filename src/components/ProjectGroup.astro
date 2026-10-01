@@ -1,10 +1,12 @@
 ---
 // src/components/ProjectGroup.astro
 // One category of projects: a hidden radio per entry, a row of
-// thumbnails, and a details block per entry. Home.astro's script mirrors
-// each radio's state onto the .selected class of its thumbnail and
-// details block. The first entry is selected by default, and each group
-// has its own radio name so selections in one group never affect another.
+// thumbnails, and a details block per entry. Each group has its own
+// radio name so selections in one group never affect another. The
+// script below (src/utils/tabs.js) discovers this group's own ids
+// from its own radios at runtime, rather than needing them passed in
+// from the server - define:vars would force this script to be
+// inlined rather than bundled, which breaks the import it needs.
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -17,7 +19,7 @@ const { title, group, entries } = Astro.props;
 ---
 
 <h3>{title}</h3>
-<div>
+<div class="project-tabs">
   {entries.map((entry, index) => (
     <input
       type="radio"
@@ -49,3 +51,8 @@ const { title, group, entries } = Astro.props;
     </div>
   ))}
 </div>
+
+<script>
+  import { initAllRadioTabGroups } from '../utils/tabs.js';
+  initAllRadioTabGroups();
+</script>

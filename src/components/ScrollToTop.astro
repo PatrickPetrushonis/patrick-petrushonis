@@ -9,16 +9,6 @@
 </a>
 
 <script>
-  import { smoothScrollTo, initScrollThresholdClass } from '../utils/scroll';
-
-  // Scroll-triggered visibility can't be known at build time, so this
-  // needs runtime JS.
-  const link = document.getElementById('scroll-to-top');
-  if (link) initScrollThresholdClass(link, 100, 'is-visible');
-
-  // Scrolls to #section-top's own position with zero offset.
-  link?.addEventListener('click', (e) => {
-    e.preventDefault();
-    smoothScrollTo('#section-top', 0);
-  });
+  import { initScrollToTopButton } from '../utils/scroll';
+  initScrollToTopButton('scroll-to-top', '#section-top');
 </script>
