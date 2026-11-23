@@ -159,7 +159,7 @@ All commands run from the project root:
 
 ## Deployment
 
-Pushing to `master` triggers `.github/workflows/deploy.yml`, which
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which
 builds the site (`withastro/action`) and deploys it
 (`actions/deploy-pages`) automatically. There is no manual deploy
 step and no `gh-pages` package. The original Vite + React version of
